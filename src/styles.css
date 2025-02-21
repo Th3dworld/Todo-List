@@ -1,0 +1,16 @@
+#main {
+    background-color: FFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+
+#body{
+    background-color: FFFFFF;
+    border: solid black 0.5px;
+    border-radius: 5px;
+    min-height: 60%;
+    width: 60%;
+
+}
