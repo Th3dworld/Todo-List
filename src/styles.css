@@ -1,6 +1,7 @@
 /* Add font */
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Mohave:ital,wght@0,300..700;1,300..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Sono:wght@200..800&display=swap');
 
+
 #main {
     background-color: FFFFF;
     display: flex;
@@ -28,6 +29,7 @@
     grid-column: 1;
     grid-row: 1/3;
     height: fit-content;
+    overflow-x: auto;
 
     display: flex;
     flex: 1 1 auto;
@@ -38,11 +40,43 @@
 
 
 }
+
 #btn-island{
+    display: grid;
     grid-column: 2;
     grid-row: 1;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 2%;
+
+
+    grid-template-columns: 1fr 1fr  1fr;
 }
 
+/* Code to work with task button */
+#add-task-btn{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-column: 3;
+    gap: 2px;
+    justify-self: end;
+
+    height: 30px;
+    border-radius: 10px;   
+}
+
+#plus{
+    font-size: 1.5rem;
+    color: black;
+}
+
+.btn-desc{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Display area code */
 #display{
     grid-column: 2;
     overflow-y: scroll;
@@ -50,6 +84,7 @@
     padding: 0 3% 0 2%;
 }
 
+/* Left side code */
 #title {
     font-size: clamp(3rem, 5vw, 7vh);
     grid-row: 1;
@@ -80,6 +115,7 @@
     
 }
 
+/* Code to format how tasks look */
 #task{
     display: grid;
     width: 100%;
@@ -134,7 +170,7 @@
 .task-priority-mid{
     grid-column: 2/4;
     grid-row: 3;
-    background-color: rgba(255, 255, 0, .9);
+    background-color: rgba(0, 255, 0, 0.9);
 
 }
 
@@ -167,4 +203,37 @@
 [type="checkbox"]:hover{
     width: 19px;
     height: 19px;
+}
+
+/* Code to edit input form */
+dialog{
+    align-self: center;
+    width: 40%;
+}
+
+.form-input-field{
+    display: grid;
+    grid-template-rows:1fr 1fr;
+    padding-bottom: 20px;
+}
+
+textarea{
+    resize: none;
+    text-align: start;
+}
+
+fieldset{
+    border: none;
+}
+
+[value="low"]{
+    accent-color: rgba(0, 255, 0, 0.9);
+}
+
+[value="mid"]{
+    accent-color: rgba(255, 255, 0, .9);
+}
+
+[value="high"]{
+    accent-color: rgba(254, 0, 0, 0.9);
 }
