@@ -10,6 +10,10 @@ module.exports = {
       title: 'Production',
       template: "./src/template.html",
     }),
+    new webpack.ContextReplacementPlugin(
+      /date-fns[/\\]locale/,
+      new RegExp(`(${locales.join("|")})\.js$`),
+    ),
   ],
   output: {
     filename: 'main.js',

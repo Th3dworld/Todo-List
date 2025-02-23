@@ -13,31 +13,47 @@ tasks.push(addGoal("Call", "Check in with family and have a conversation", "N/A"
 
 const addTaskBtn = document.querySelector("#add-task-btn");
 const taskDialog = document.querySelector("#task-dialog");
-const display = document.querySelector("#display");
+const taskDisplay = document.querySelector("#display");
 
-addTaskBtn.addEventListener("click", () =>{taskDialog.showModal()});
-taskDialog.addEventListener("close", (e) =>{
+function getTaskData(){
     const title = document.querySelector("#task-title-input").value;
     const description = document.querySelector("#task-description-input").value;
     const project = document.querySelector("#task-project-input").value;
-    var priority;    
+
+    //format and store date
+    var dateFormatter = document.querySelector("#task-duedate-input").value.split("-");
+    dateFormatter[0] = dateFormatter[0].split("");
+    var date = parseInt(dateFormatter[1]) + "/" + dateFormatter[2] + "/" + dateFormatter[0][2] + + dateFormatter[0][3];
+    
+        
 
     //get priority
+    var priority;
     document.getElementsByName("task-priority-input").forEach(elem => {
         if(elem.checked){
             priority = elem.value;
         }
     });
 
-    console.log(priority)
-    console.log(project)
-    console.log(description)
-    console.log(title)
+    return {
+        title,
+        description,
+        project,
+        date,
+        priority
+    }
+}
 
-    tasks.push(addGoal(title, description,project,priority, ""))
+//Show task input form
+addTaskBtn.addEventListener("click", () =>{taskDialog.showModal()});
 
-    showTasks(tasks);
+//Add task to display
+taskDialog.addEventListener("close", (e) =>{
+    const taskData = getTaskData();    
+    tasks.push(addGoal(taskData.title, taskData.description,taskData.project,taskData.priority,taskData.date))
+    showTasks(tasks, taskDisplay);
 
-    console.log(tasks);
 });
+
+showTasks(tasks, taskDisplay);
 

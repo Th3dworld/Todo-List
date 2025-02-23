@@ -14,10 +14,10 @@ function addGoal(title, description, project, priority, dueDate){
     return new Goal(title, description, project, priority, dueDate)
 }
 
-function showTasks(taskArray){
+function showTasks(taskArray, htmlComponent){
     if(taskArray.length > 0){
-        tasks.forEach(elem => {
-            document.querySelector("#display").innerHTML += `
+        taskArray.forEach(elem => {
+            htmlComponent.innerHTML += `
             <div id="task">
             <div id="check"><input type="checkbox"></div>
             <div id="task-title">${elem.title}</div>
