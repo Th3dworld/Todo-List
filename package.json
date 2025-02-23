@@ -13,7 +13,6 @@
     "start": "webpack serve --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js"
   },
-  "type": "module",
   "dependencies": {
     "date-fns": "^4.1.0"
   }

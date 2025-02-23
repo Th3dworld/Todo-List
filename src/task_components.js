@@ -30,6 +30,11 @@ function showTasks(taskArray, htmlComponent){
             </div>
             `
         });
+    } else {
+        htmlComponent.innerHTML += `
+        <div id="empty-message">
+            No tasks here! Click add task in the top right corner to add one.
+        </div>     `
     }
 }
 
