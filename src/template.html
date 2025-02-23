@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DoDo</title>
     <link rel="stylesheet" href="./styles.css">
-    <script src="add_task.js" defer></script>
+    <script type="module" src="add_task.js" defer></script>
 </head>
 <body>
     <div id="main">
@@ -42,8 +42,12 @@
                 <p>Let's Do Do</p>
                 <form method="dialog">
                     <div class="form-input-field">
-                        <label for="task-title-input">Name :</label>
+                        <label for="task-title-input">Task Name :</label>
                         <input type="text" name="task-title-input" id="task-title-input" maxlength="18">
+                    </div>
+                    <div class="form-input-field">
+                        <label for="task-project-input">Project Group:</label>
+                        <input type="text" name="task-project-input" id="task-project-input" maxlength="18">
                     </div>
                     <div class="form-input-field">
                         <label for="task-description-input">Description:</label>

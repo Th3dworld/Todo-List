@@ -79,9 +79,9 @@
 /* Display area code */
 #display{
     grid-column: 2;
+    overflow: hidden;
     overflow-y: scroll;
-
-    padding: 0 3% 0 2%;
+    padding: 0 4% 0 2%;
 }
 
 /* Left side code */
@@ -148,6 +148,7 @@
     grid-column: 3;
     grid-row: 1/3;
     font-size: 1.8rem;
+
 }
 
 #ac-date{
