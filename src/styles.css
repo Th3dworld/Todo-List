@@ -218,6 +218,13 @@ dialog{
     width: 40%;
 }
 
+#form-buttons{
+    display: flex;
+    justify-content: space-around;
+    width: 70%;
+    justify-self: center;
+}
+
 .form-input-field{
     display: grid;
     grid-template-rows:1fr 1fr;

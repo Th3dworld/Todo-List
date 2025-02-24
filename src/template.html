@@ -27,7 +27,7 @@
             <!--  -->
             <dialog id="task-dialog">
                 <p>Let's Do Do</p>
-                <form method="dialog">
+                <form method="dialog" id="my-form">
                     <div class="form-input-field">
                         <label for="task-title-input">Task Name :</label>
                         <input type="text" name="task-title-input" id="task-title-input" maxlength="18">
@@ -58,7 +58,10 @@
                             <label><input type="radio" name="task-priority-input" value="high" />High</label>
                         </div>
                     </div>
-                  <button id="sumbit-task">Add Task!</button>
+                    <div id="form-buttons">
+                        <button id="sumbit-task">Add Task!</button>
+                        <button id="sumbit-task">Cancel</button>
+                    </div>  
                 </form>
             </dialog>
         </div>

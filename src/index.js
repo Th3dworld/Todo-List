@@ -4,6 +4,7 @@ import "./styles.css";
 //Array to hold tasks
 const tasks = [];
 
+
 //Get control variables
 const addTaskBtn = document.querySelector("#add-task-btn");
 const taskDialog = document.querySelector("#task-dialog");
@@ -43,13 +44,20 @@ function resetDisplay(){
     display.innerHTML = "";
 }
 
+function resetForm(){
+   document.querySelector("#my-form").reset();
+}
+
 //Program Events
 addTaskBtn.addEventListener("click", () =>{taskDialog.showModal()});
 
 //Add task to display
 taskDialog.addEventListener("close", (e) =>{
-    const taskData = getTaskData();    
+    const taskData = getTaskData();
     tasks.push(addGoal(taskData.title, taskData.description,taskData.project,taskData.priority,taskData.date))
+
+    //reset the form
+    resetForm()    
 
     //reset display and show tasks
     resetDisplay()
