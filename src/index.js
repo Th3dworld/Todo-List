@@ -9,6 +9,8 @@ const tasks = [];
 const addTaskBtn = document.querySelector("#add-task-btn");
 const taskDialog = document.querySelector("#task-dialog");
 const display = document.querySelector("#display");
+const cancelBtn = document.querySelector("#cancel-task");
+const submitBtn = document.querySelector("#sumbit-task");
 
 //functions
 function getTaskData(){
@@ -40,22 +42,20 @@ function getTaskData(){
     }
 }
 
+function resetForm(){
+    document.querySelector("#my-form").reset();
+ }
+
 function resetDisplay(){
     display.innerHTML = "";
-}
-
-function resetForm(){
-   document.querySelector("#my-form").reset();
 }
 
 //Program Events
 addTaskBtn.addEventListener("click", () =>{taskDialog.showModal()});
 
+
 //Add task to display
 taskDialog.addEventListener("close", (e) =>{
-    const taskData = getTaskData();
-    tasks.push(addGoal(taskData.title, taskData.description,taskData.project,taskData.priority,taskData.date))
-
     //reset the form
     resetForm()    
 
@@ -63,6 +63,22 @@ taskDialog.addEventListener("close", (e) =>{
     resetDisplay()
     showTasks(tasks, display);
 
+});
+
+//form events
+submitBtn.addEventListener("click", (e) =>{
+    e.preventDefault();
+
+    const taskData = getTaskData();
+    tasks.push(addGoal(taskData.title, taskData.description,taskData.project,taskData.priority,taskData.date))
+
+    taskDialog.close()
+
+});
+
+cancelBtn.addEventListener("click", ()=>{
+    //reset the form
+    resetForm()    
 });
 
 showTasks(tasks, display);
