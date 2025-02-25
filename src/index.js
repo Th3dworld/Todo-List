@@ -1,4 +1,6 @@
 import { addGoal, showTasks} from "./task_components.js";
+import {formIsValid} from "./form_handler.js"
+
 import "./styles.css";
 
 //Array to hold tasks
@@ -44,18 +46,23 @@ function getTaskData(){
 
 function resetForm(){
     document.querySelector("#my-form").reset();
- }
+}
 
 function resetDisplay(){
     display.innerHTML = "";
 }
 
 //Program Events
-addTaskBtn.addEventListener("click", () =>{taskDialog.showModal()});
+addTaskBtn.addEventListener("click", () => {taskDialog.showModal()});
 
 
 //Add task to display
 taskDialog.addEventListener("close", (e) =>{
+    //if form is valid append task
+    if(formIsValid()){
+        const taskData = getTaskData();
+        tasks.push(addGoal(taskData.title, taskData.description,taskData.project,taskData.priority,taskData.date))
+    }
     //reset the form
     resetForm()    
 
@@ -66,19 +73,16 @@ taskDialog.addEventListener("close", (e) =>{
 });
 
 //form events
-submitBtn.addEventListener("click", (e) =>{
-    e.preventDefault();
-
-    const taskData = getTaskData();
-    tasks.push(addGoal(taskData.title, taskData.description,taskData.project,taskData.priority,taskData.date))
-
-    taskDialog.close()
+submitBtn.addEventListener("click", () =>{
+    // e.preventDefault()
+    
 
 });
 
-cancelBtn.addEventListener("click", ()=>{
+cancelBtn.addEventListener("click", (e)=>{
     //reset the form
-    resetForm()    
+    resetForm();
+    taskDialog.close();   
 });
 
 showTasks(tasks, display);

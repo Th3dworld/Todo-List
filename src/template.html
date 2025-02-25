@@ -27,10 +27,10 @@
             <!--  -->
             <dialog id="task-dialog">
                 <p>Let's Do Do</p>
-                <form method="dialog" id="my-form">
+                <form method="dialog" id="my-form" type="submit">
                     <div class="form-input-field">
                         <label for="task-title-input">Task Name :</label>
-                        <input type="text" name="task-title-input" id="task-title-input" maxlength="18">
+                        <input type="text" name="task-title-input" id="task-title-input" maxlength="18" required="required">
                     </div>
                     <div class="form-input-field">
                         <label for="task-project-input">Project Group:</label>
@@ -47,13 +47,13 @@
                     </div>
                     <div class="form-input-field">
                         <label for="task-duedate-input">Due Date :</label>
-                        <input type="date" name="task-duedate-input" id="task-duedate-input">
+                        <input type="date" name="task-duedate-input" id="task-duedate-input" required>
                     </div>
                    
                     <div>
                         <label>Priority:</label>
                         <div style="padding-bottom: 20px;">   
-                            <label><input type="radio" name="task-priority-input" value="low" />Low</label>
+                            <label><input type="radio" name="task-priority-input" value="low" required>Low</label>
                             <label><input type="radio" name="task-priority-input" value="mid" />Medium</label>
                             <label><input type="radio" name="task-priority-input" value="high" />High</label>
                         </div>
