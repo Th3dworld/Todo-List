@@ -7,10 +7,11 @@ function formIsValid(){
         }
     });
 
+    //Check if form is filled before creating task object
     if(document.querySelector("#task-title-input").value !== "" &&
     document.querySelector("#task-duedate-input").value !== "" &&
     priority !== ""){
-        return True
+        return true
     }
 }
 
@@ -47,4 +48,4 @@ function resetForm(){
     document.querySelector("#my-form").reset();
 }
 
-export {formIsValid}
+export {formIsValid, getTaskData, resetForm}
