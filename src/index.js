@@ -1,5 +1,6 @@
 import { addGoal, showTasks} from "./task_components.js";
 import {formIsValid, getFormData, resetForm} from "./form_handler.js"
+import { projectCounter, showProjects } from "./project_components.js";
 
 import "./styles.css";
 
@@ -13,6 +14,10 @@ const taskDialog = document.querySelector("#task-dialog");
 const display = document.querySelector("#display");
 const cancelBtn = document.querySelector("#cancel-task");
 const menuBtns = document.querySelectorAll(".menu-btn");
+
+//Menu buttons
+const todoBtn = document.querySelector("#todo");
+const projectBtn = document.querySelector("#projects");
 
 //functions
 function resetDisplay(){
@@ -44,33 +49,9 @@ taskDialog.addEventListener("close", (e) =>{
     if(formIsValid()){
         const taskData = getFormData();
         tasks.push(addGoal(taskData.title, taskData.description,taskData.project,taskData.priority,taskData.date))
-        
-        if(!projects.has(taskData.project)){
-            projects[taskData.project] = 0;
-            projects[taskData.project] += 1;
-        }else{
-            projects[taskData.project] += 1;
-        }   
-
-        tasks.forEach(task => {
-            display.innerHTML += `
-                <div class="project-view">
-                    <div class="project-name">${task.project}</div>
-                    <div class="number-of-tasks">Tasks<br>${projects[task.project]}</div>
-                    <div id="project-tasks">
-                        <div class="project-task">
-                            <div class="project-task-title">${task.title}</div>
-                            <div class="project-date">
-                                <div>Due: ${task.date}</div>
-                            </div>
-                            <div class="task-priority-${task.priority}"></div>
-                        </div>
-                    </div>
-                </div>
-            `
-        });
-        
+        projectCounter(projects);
     }
+
     //reset the form
     resetForm()    
 
@@ -89,4 +70,15 @@ cancelBtn.addEventListener("click", (e)=>{
 
 //Always show tasks first
 // showTasks(tasks, display);
+
+//Menu button event listener
+todoBtn.addEventListener("click", () =>{
+    resetDisplay();
+    showTasks(tasks, display);
+});
+
+projectBtn.addEventListener("click", () =>{
+    resetDisplay();
+    showProjects(tasks, Array(Object.values(projects)), display);
+});
 
