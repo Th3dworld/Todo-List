@@ -5,6 +5,7 @@ import "./styles.css";
 
 //Array to hold tasks
 const tasks = [];
+const projects = {};
 
 //Get control variables
 const addTaskBtn = document.querySelector("#add-task-btn");
@@ -43,13 +44,39 @@ taskDialog.addEventListener("close", (e) =>{
     if(formIsValid()){
         const taskData = getFormData();
         tasks.push(addGoal(taskData.title, taskData.description,taskData.project,taskData.priority,taskData.date))
+        
+        if(!projects.has(taskData.project)){
+            projects[taskData.project] = 0;
+            projects[taskData.project] += 1;
+        }else{
+            projects[taskData.project] += 1;
+        }   
+
+        tasks.forEach(task => {
+            display.innerHTML += `
+                <div class="project-view">
+                    <div class="project-name">${task.project}</div>
+                    <div class="number-of-tasks">Tasks<br>${projects[task.project]}</div>
+                    <div id="project-tasks">
+                        <div class="project-task">
+                            <div class="project-task-title">${task.title}</div>
+                            <div class="project-date">
+                                <div>Due: ${task.date}</div>
+                            </div>
+                            <div class="task-priority-${task.priority}"></div>
+                        </div>
+                    </div>
+                </div>
+            `
+        });
+        
     }
     //reset the form
     resetForm()    
 
     //reset display and show tasks
-    resetDisplay()
-    showTasks(tasks, display);
+    // resetDisplay()
+    //showTasks(tasks, display);
 
 });
 
@@ -61,5 +88,5 @@ cancelBtn.addEventListener("click", (e)=>{
 });
 
 //Always show tasks first
-showTasks(tasks, display);
+// showTasks(tasks, display);
 

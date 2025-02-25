@@ -19,14 +19,14 @@ function showTasks(taskArray, htmlComponent){
         taskArray.forEach(elem => {
             htmlComponent.innerHTML += `
             <div id="task">
-            <div id="check"><input type="checkbox"></div>
-            <div id="task-title">${elem.title}</div>
-            <div id="task-description">${elem.description}</div>
-            <div id="date">
-                <div>Due</div>
-                <div id="ac-date">${elem.dueDate}</div>
-            </div>
-            <div class="task-priority-${elem.priority}"></div>
+                <div id="check"><input type="checkbox"></div>
+                <div id="task-title">${elem.title}</div>
+                <div id="task-description">${elem.description}</div>
+                <div id="date">
+                    <div>Due</div>
+                    <div id="ac-date">${elem.dueDate}</div>
+                </div>
+                <div class="task-priority-${elem.priority}"></div>
             </div>
             `
         });
