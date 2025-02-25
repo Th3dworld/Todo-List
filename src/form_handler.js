@@ -15,7 +15,7 @@ function formIsValid(){
     }
 }
 
-function getTaskData(){
+function getFormData(){
     const title = document.querySelector("#task-title-input").value;
     const description = document.querySelector("#task-description-input").value;
     const project = document.querySelector("#task-project-input").value;
@@ -48,4 +48,4 @@ function resetForm(){
     document.querySelector("#my-form").reset();
 }
 
-export {formIsValid, getTaskData, resetForm}
+export {formIsValid, getFormData, resetForm}
