@@ -94,7 +94,6 @@ projectBtn.addEventListener("click", () =>{
 
             tasks.forEach(task => {
                 if(task.project == e.target.id){
-                    console.log(task)
                     childNodes[5].innerHTML += `
                     <div class="project-task">
                         <div class="project-task-title">${task.title}</div>
