@@ -14,6 +14,7 @@ const taskDialog = document.querySelector("#task-dialog");
 const display = document.querySelector("#display");
 const cancelBtn = document.querySelector("#cancel-task");
 const menuBtns = document.querySelectorAll(".menu-btn");
+var projectViewBtn = document.querySelectorAll(".project-view");
 
 //Menu buttons
 const todoBtn = document.querySelector("#todo");
@@ -49,15 +50,14 @@ taskDialog.addEventListener("close", (e) =>{
     if(formIsValid()){
         const taskData = getFormData();
         tasks.push(addGoal(taskData.title, taskData.description,taskData.project,taskData.priority,taskData.date))
-        projectCounter(projects);
+        projectCounter(projects, taskData);
     }
-
     //reset the form
     resetForm()    
 
     //reset display and show tasks
-    // resetDisplay()
-    //showTasks(tasks, display);
+    resetDisplay()
+    showTasks(tasks, display);
 
 });
 
@@ -69,7 +69,7 @@ cancelBtn.addEventListener("click", (e)=>{
 });
 
 //Always show tasks first
-// showTasks(tasks, display);
+showTasks(tasks, display);
 
 //Menu button event listener
 todoBtn.addEventListener("click", () =>{
@@ -79,6 +79,38 @@ todoBtn.addEventListener("click", () =>{
 
 projectBtn.addEventListener("click", () =>{
     resetDisplay();
-    showProjects(tasks, Array(Object.values(projects)), display);
+    showProjects(projects, Object.keys(projects), display);
+
+    //update project view button array
+    projectViewBtn = document.querySelectorAll(".project-view");
+    console.log(projectViewBtn)
+
+    projectViewBtn.forEach(projectView => {
+        const childNodes = projectView.childNodes;
+    
+        projectView.addEventListener("click", (e) =>{
+            childNodes[5].innerHTML += "";
+            console.log(childNodes[5].innerHTML)
+
+            tasks.forEach(task => {
+                if(task.project == e.target.id){
+                    console.log(task)
+                    childNodes[5].innerHTML += `
+                    <div class="project-task">
+                        <div class="project-task-title">${task.title}</div>
+                        <div class="project-date">
+                            <div>Due: ${task.dueDate}</div>
+                        </div>
+                        <div class="task-priority-${task.priority}"></div>
+                    </div> 
+                    `
+                }
+            })
+            
+        })
+    })
 });
+
+
+
 

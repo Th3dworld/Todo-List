@@ -1,18 +1,18 @@
 function projectCounter(projectObj,taskObj){
-    if(!(projectObj[taskObj.project] += 1)){
+    if(!(projectObj[taskObj.project])){
         projectObj[taskObj.project] = 1
     }else{
         projectObj[taskObj.project] += 1
     }
 }
 
-function showProjects(taskArray, projectArray, htmlComponent){
-    if(projectArray.length > 1){
-        taskArray.forEach(task => {
+function showProjects(projectObj, projectArray, htmlComponent){
+    if(projectArray.length > 0){
+        projectArray.forEach(project => {
             display.innerHTML += `
-                <div class="project-view">
-                    <div class="project-name">${task.project}</div>
-                    <div class="number-of-tasks">Tasks<br>${projects[task.project]}</div>
+                <div class="project-view" id="${project}">
+                    <div class="project-name">${project}</div>
+                    <div class="number-of-tasks">Tasks<br>${projectObj[project]}</div>
                     <div id="project-tasks">
                     </div>
                 </div>
@@ -21,17 +21,13 @@ function showProjects(taskArray, projectArray, htmlComponent){
     } else {
         htmlComponent.innerHTML += `
         <div id="empty-message">
-            No projects here! Click add task in the top right corner to add one.
+            No projects here!<br>
+            You will see your projects here when you create a task with under a project group.<br>
+            Click Add Task in the top right corner to do that.
         </div>     `
     }
 }
 
-{/* <div class="project-task">
-    <div class="project-task-title">${task.title}</div>
-    <div class="project-date">
-        <div>Due: ${task.dueDate}</div>
-    </div>
-    <div class="task-priority-${task.priority}"></div>
-</div> */}
+{/* */}
 
 export {projectCounter,showProjects}
