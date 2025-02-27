@@ -1,6 +1,7 @@
 import { addGoal, showTasks} from "./task_components.js";
-import {formIsValid, getFormData, resetForm} from "./form_handler.js"
 import { projectCounter, showProjects } from "./project_components.js";
+import {taskFormIsValid, getFormData, resetForm} from "./form_handler.js"
+
 
 import "./styles.css";
 
@@ -10,15 +11,19 @@ const projects = {};
 
 //Get control variables
 const addTaskBtn = document.querySelector("#add-task-btn");
+const addNoteBtn = document.querySelector("#add-note-btn");
 const taskDialog = document.querySelector("#task-dialog");
+const noteDialog = document.querySelector("#note-dialog");
 const display = document.querySelector("#display");
-const cancelBtn = document.querySelector("#cancel-task");
+const cancelTaskBtn = document.querySelector("#cancel-task");
+const cancelNoteBtn = document.querySelector("#cancel-note");
 const menuBtns = document.querySelectorAll(".menu-btn");
 var projectViewBtn = document.querySelectorAll(".project-view");
 
 //Menu buttons
 const todoBtn = document.querySelector("#todo");
 const projectBtn = document.querySelector("#projects");
+const noteBtn = document.querySelector("#notes");
 
 //functions
 function resetDisplay(){
@@ -27,6 +32,7 @@ function resetDisplay(){
 
 //Program Events
 addTaskBtn.addEventListener("click", () => {taskDialog.showModal()});
+addNoteBtn.addEventListener("click", ()=>{noteDialog.showModal()})
 
 menuBtns.forEach(btn => {
     //Add event listener for 
@@ -47,13 +53,14 @@ menuBtns.forEach(btn => {
 //Add task to display
 taskDialog.addEventListener("close", (e) =>{
     //if form is valid append task
-    if(formIsValid()){
+    if(taskFormIsValid()){
         const taskData = getFormData();
         tasks.push(addGoal(taskData.title, taskData.description,taskData.project,taskData.priority,taskData.date))
         projectCounter(projects, taskData);
     }
+    
     //reset the form
-    resetForm()    
+    resetForm("#my-form") 
 
     //reset display and show tasks
     resetDisplay()
@@ -61,15 +68,26 @@ taskDialog.addEventListener("close", (e) =>{
 
 });
 
+noteDialog.addEventListener("close", ()=>{
+
+});
+
 //form events
-cancelBtn.addEventListener("click", (e)=>{
+cancelTaskBtn.addEventListener("click", (e)=>{
+    e.preventDefault()
     //reset the form so it is never valid on submission
-    resetForm();
+    resetForm("#my-form");
     taskDialog.close();   
 });
 
+cancelNoteBtn.addEventListener("click", (e)=>{
+    e.preventDefault()
+    resetForm("#my-note-form");
+    noteDialog.close();
+})
+
 //Always show tasks first
-showTasks(tasks, display);
+// showTasks(tasks, display);
 
 //Menu button event listener
 todoBtn.addEventListener("click", () =>{
@@ -89,9 +107,8 @@ projectBtn.addEventListener("click", () =>{
         const childNodes = projectView.childNodes;
     
         projectView.addEventListener("click", (e) =>{
-            childNodes[5].innerHTML += "";
-            console.log(childNodes[5].innerHTML)
-
+            childNodes[5].innerHTML = "";
+        
             tasks.forEach(task => {
                 if(task.project == e.target.id){
                     childNodes[5].innerHTML += `
@@ -103,6 +120,10 @@ projectBtn.addEventListener("click", () =>{
                         <div class="task-priority-${task.priority}"></div>
                     </div> 
                     `
+
+                    document.getElementById(e.target.id).classList.remove("project-view");
+                    document.getElementById(e.target.id).classList.add("project-view-clicked");
+                    console.log(e.target)
                 }
             })
             

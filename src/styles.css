@@ -4,6 +4,7 @@
 body{
     cursor: default;
 }
+
 #main {
     background-color: FFFFF;
     display: flex;
@@ -50,14 +51,25 @@ body{
     padding-right: 2%;
 
 
-    grid-template-columns: 1fr 1fr  1fr;
+    grid-template-columns: 1fr 100px 100px;
 }
 
-/* Code to work with task button */
+/* Code to work with button island */
 #add-task-btn{
     display: grid;
     grid-template-columns: 1fr 4fr;
     grid-column: 3;
+    gap: 2px;
+    justify-self: end;
+
+    height: 30px;
+    border-radius: 10px;   
+}
+
+#add-note-btn{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-column: 2;
     gap: 2px;
     justify-self: end;
 
@@ -244,6 +256,13 @@ dialog{
     padding-bottom: 20px;
 }
 
+.form-input-field-large{
+    display: grid;
+    grid-template-rows:25px 1fr;
+    padding-bottom: 20px;
+}
+
+
 textarea{
     resize: none;
     text-align: start;
@@ -353,4 +372,58 @@ fieldset{
 
     border: 1px solid black;
     box-shadow: 5px 5px 5px  black;
+}
+
+.project-view-clicked{
+    display: grid;
+    width: 100%;
+    min-height: 80px;
+    height: max-content;
+    border-radius: 10px;
+    padding: 10px 0px 0px 10px;
+    overflow-x: hidden;
+
+    margin-bottom: 15px;
+
+    grid-template-columns: 50px 1fr 100px;
+    grid-template-rows: 50px 50px 1fr;
+
+    border: 1px solid black;
+    border-bottom: 1px dashed rgba(128, 128, 128, 0.886);
+}
+
+/* Code to work with notes */
+#note-boy{
+    min-height: 90%;
+    max-height: 1000%;
+    padding-bottom: 30px;
+    padding-top: 10px;
+
+    display: grid;
+    gap: 30px;
+
+    justify-content: center;
+    overflow: scroll;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 250px));
+    grid-template-rows: repeat(auto-fit, minmax(300px, 300px));
+}
+
+.note-pad{
+    background-color: gray;
+    padding: 10px;
+    border-radius: 15px;
+
+    display: grid;
+    grid-template-rows: 40px 1fr;
+    overflow-y: hidden;
+}
+
+.note-title{
+    font-size: 150%;
+    color: aliceblue;
+}
+
+.note-notes{
+    color: aliceblue;
+    overflow-y: scroll;
 }

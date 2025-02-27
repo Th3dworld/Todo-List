@@ -1,4 +1,4 @@
-function formIsValid(){
+function taskFormIsValid(){
     //get priority
     var priority = "";
     document.getElementsByName("task-priority-input").forEach(elem => {
@@ -44,8 +44,8 @@ function getFormData(){
     }
 }
 
-function resetForm(){
-    document.querySelector("#my-form").reset();
+function resetForm(formId){
+    document.querySelector(formId).reset();
 }
 
-export {formIsValid, getFormData, resetForm}
+export {taskFormIsValid, getFormData, resetForm}

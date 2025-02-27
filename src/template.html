@@ -17,12 +17,51 @@
                 </div>
             </div>
             <div id="btn-island">
+                <button id="add-note-btn">
+                    <div id="plus">+</div>        
+                    <div class="btn-desc">Add Note</div>
+                </button>
                 <button id="add-task-btn">
                     <div id="plus">+</div>        
-                    <div class="btn-desc">Add task</div>
+                    <div class="btn-desc">Add Task</div>
                 </button>
             </div>
             <div id="display">
+                <div id="note-boy">
+                    <div class="note-pad">
+                        <div class="note-title">
+                            I am a title
+                        </div>
+                        <div class="note-notes">
+                            The rain drummed against the windowpane, a steady rhythm that matched the quiet hum of the old ceiling fan. 
+                            James sat at his desk, staring at the blank page in his notebook, his pen tapping absently against the wood. 
+                            Ideas swirled in his mind like autumn leaves caught in a gust of wind—fragments of stories, half-formed characters, echoes of conversations he had never actually heard. 
+                            He sighed, leaning back in his chair, wondering if inspiration would ever strike or if he was doomed to wrestle with the emptiness of the page forever.
+                        </div>
+                    </div>
+                    <div class="note-pad">
+                        <div class="note-title">
+                            I am a title
+                        </div>
+                        <div class="note-notes">
+                            The rain drummed against the windowpane, a steady rhythm that matched the quiet hum of the old ceiling fan. 
+                            James sat at his desk, staring at the blank page in his notebook, his pen tapping absently against the wood. 
+                            Ideas swirled in his mind like autumn leaves caught in a gust of wind—fragments of stories, half-formed characters, echoes of conversations he had never actually heard. 
+                            He sighed, leaning back in his chair, wondering if inspiration would ever strike or if he was doomed to wrestle with the emptiness of the page forever.
+                        </div>
+                    </div>
+                    <div class="note-pad">
+                        <div class="note-title">
+                            I am a title
+                        </div>
+                        <div class="note-notes">
+                            The rain drummed against the windowpane, a steady rhythm that matched the quiet hum of the old ceiling fan. 
+                            James sat at his desk, staring at the blank page in his notebook, his pen tapping absently against the wood. 
+                            Ideas swirled in his mind like autumn leaves caught in a gust of wind—fragments of stories, half-formed characters, echoes of conversations he had never actually heard. 
+                            He sighed, leaning back in his chair, wondering if inspiration would ever strike or if he was doomed to wrestle with the emptiness of the page forever.
+                        </div>
+                    </div>
+                </div>
             </div>
             <dialog id="task-dialog">
                 <p>Let's Do Do</p>
@@ -60,6 +99,28 @@
                     <div id="form-buttons">
                         <button id="sumbit-task">Add Task!</button>
                         <button id="cancel-task">Cancel</button>
+                    </div>  
+                </form>
+            </dialog>
+            <dialog id="note-dialog">
+                <p>Notes</p>
+                <form method="dialog" id="my-note-form" type="submit">
+                    <div class="form-input-field">
+                        <label for="note-title-input">Title :</label>
+                        <input type="text" name="note-title-input" id="note-title-input" maxlength="20" required="required">
+                    </div>
+                    <div class="form-input-field-large">
+                        <label for="note-description-input">Description:</label>
+                        <textarea  
+                        name="note-description-input" 
+                        id="note-description-input" 
+                        rows="10" 
+                        cols="10" 
+                        placeholder="Your notes go here..." required></textarea>
+                    </div>
+                    <div id="form-buttons">
+                        <button id="sumbit-note">Add Note!</button>
+                        <button id="cancel-note">Cancel</button>
                     </div>  
                 </form>
             </dialog>
