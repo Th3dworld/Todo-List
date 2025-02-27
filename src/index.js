@@ -1,12 +1,14 @@
 import { addGoal, showTasks} from "./task_components.js";
 import { projectCounter, showProjects } from "./project_components.js";
-import {taskFormIsValid, getFormData, resetForm} from "./form_handler.js"
+import { addNote, showNotes, getNoteFormData } from "./note_components.js";
+import {taskFormIsValid, noteFormIsValid, getFormData, resetForm} from "./form_handler.js"
 
 
 import "./styles.css";
 
 //Array to hold tasks
 const tasks = [];
+const notes = [];
 const projects = {};
 
 //Get control variables
@@ -69,6 +71,15 @@ taskDialog.addEventListener("close", (e) =>{
 });
 
 noteDialog.addEventListener("close", ()=>{
+    if(noteFormIsValid()){
+        const noteData = getNoteFormData();
+        console.log(noteData)
+        notes.push(addNote(noteData.title, noteData.note, noteData.writeDate));
+    }
+
+    //reset display and show notes
+    resetDisplay();
+    showNotes(notes, display);
 
 });
 
@@ -87,12 +98,17 @@ cancelNoteBtn.addEventListener("click", (e)=>{
 })
 
 //Always show tasks first
-// showTasks(tasks, display);
+showTasks(tasks, display);
 
 //Menu button event listener
 todoBtn.addEventListener("click", () =>{
     resetDisplay();
     showTasks(tasks, display);
+});
+
+noteBtn.addEventListener("click", ()=>{
+    resetDisplay();
+    showNotes(notes, display);
 });
 
 projectBtn.addEventListener("click", () =>{

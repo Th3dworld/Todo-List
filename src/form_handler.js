@@ -48,4 +48,13 @@ function resetForm(formId){
     document.querySelector(formId).reset();
 }
 
-export {taskFormIsValid, getFormData, resetForm}
+function noteFormIsValid(){
+    if(
+        document.querySelector("#note-title-input").value != "" &&
+        document.querySelector("#note-title-input").value != ""
+    ){
+        return true;
+    }
+}
+
+export {taskFormIsValid, noteFormIsValid, getFormData, resetForm}

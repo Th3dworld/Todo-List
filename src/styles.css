@@ -409,21 +409,30 @@ fieldset{
 }
 
 .note-pad{
-    background-color: gray;
+    background-color: rgba(128, 128, 128, 0.898);
     padding: 10px;
     border-radius: 15px;
 
     display: grid;
-    grid-template-rows: 40px 1fr;
+    grid-template-rows: 40px 1fr 15px;
     overflow-y: hidden;
 }
 
 .note-title{
+    grid-row: 1;
     font-size: 150%;
-    color: aliceblue;
+    color:black;
 }
 
 .note-notes{
+    grid-row: 2;
     color: aliceblue;
     overflow-y: scroll;
+}
+
+.date{
+    grid-row: 3;
+    justify-self: end;
+    color:aliceblue;
+
 }
