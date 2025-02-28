@@ -22,7 +22,7 @@ function showProjects(projectObj, projectArray, htmlComponent){
         htmlComponent.innerHTML += `
         <div id="empty-message">
             No projects here!<br>
-            You will see your projects here when you create a task with under a project group.<br>
+            You will see your projects here when you create a task with a project group.<br>
             Click Add Task in the top right corner to do that.
         </div>     `
     }
