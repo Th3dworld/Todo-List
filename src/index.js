@@ -20,6 +20,7 @@ const display = document.querySelector("#display");
 const cancelTaskBtn = document.querySelector("#cancel-task");
 const cancelNoteBtn = document.querySelector("#cancel-note");
 const menuBtns = document.querySelectorAll(".menu-btn");
+var checkBtns;
 var projectViewBtn = document.querySelectorAll(".project-view");
 
 //Menu buttons
@@ -59,6 +60,7 @@ taskDialog.addEventListener("close", (e) =>{
         const taskData = getFormData();
         tasks.push(addGoal(taskData.title, taskData.description,taskData.project,taskData.priority,taskData.date))
         projectCounter(projects, taskData);
+        checkBtns = document.querySelectorAll(".check");
     }
     
     //reset the form

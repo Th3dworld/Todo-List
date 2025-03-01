@@ -18,9 +18,10 @@ function addGoal(title, description, project, priority, dueDate){
 function showTasks(taskArray, htmlComponent){
     if(taskArray.length > 0){
         taskArray.forEach(elem => {
-            htmlComponent.innerHTML += `
+            if(!elem.complete){
+                htmlComponent.innerHTML += `
             <div id="task">
-                <div id="check"><input type="checkbox"></div>
+                <div id="check" class="check"><input type="checkbox"></div>
                 <div id="task-title">${elem.title}</div>
                 <div id="task-description">${elem.description}</div>
                 <div id="date">
@@ -30,6 +31,21 @@ function showTasks(taskArray, htmlComponent){
                 <div class="task-priority-${elem.priority}"></div>
             </div>
             `
+            }else{
+                htmlComponent.innerHTML += `
+            <div id="task">
+                <div id="check" class="check"><input type="checkbox" checked></div>
+                <div id="task-title">${elem.title}</div>
+                <div id="task-description">${elem.description}</div>
+                <div id="date">
+                    <div>Due</div>
+                    <div id="ac-date">${elem.dueDate}</div>
+                </div>
+                <div class="task-priority-${elem.priority}"></div>
+            </div>
+            `
+            }
+            
         });
     } else {
         htmlComponent.innerHTML += `
