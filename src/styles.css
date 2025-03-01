@@ -136,7 +136,7 @@ body{
 
 .menu-btn:hover{
     /* font-size: max(2vw, 3vh); */
-    font-size: calc(clamp(1.8rem, 3vw, 4vh) + 0.5vh);
+    font-size: calc(clamp(1.6rem, 3vw, 4vh) + 0.5vh);
     color: #3E5C76;
     padding-left: 30px;
     cursor: pointer;
@@ -145,7 +145,7 @@ body{
 
 .menu-btn-clicked{
     /* font-size: max(2vw, 3vh); */
-    font-size: calc(clamp(1.8rem, 3vw, 4vh) + 0.5vh);
+    font-size: calc(clamp(1.6rem, 3vw, 4vh) + 0.5vh);
     color: #3E5C76;
     padding-left: 30px;
     cursor: pointer;

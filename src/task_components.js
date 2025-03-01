@@ -6,6 +6,7 @@ class Goal{
         this.priority = priority;
         this.project = project
         this.dueDate = dueDate
+        this.complete = false;
     }
 
 }
