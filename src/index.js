@@ -60,7 +60,6 @@ taskDialog.addEventListener("close", (e) =>{
         const taskData = getFormData();
         tasks.push(addGoal(taskData.title, taskData.description,taskData.project,taskData.priority,taskData.date))
         projectCounter(projects, taskData);
-        checkBtns = document.querySelectorAll(".check");
     }
     
     //reset the form
@@ -148,7 +147,6 @@ projectBtn.addEventListener("click", () =>{
         })
     })
 });
-
 
 
 
