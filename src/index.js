@@ -6,8 +6,10 @@ import {taskFormIsValid, noteFormIsValid, getFormData, resetForm} from "./form_h
 
 import "./styles.css";
 
+
 //Array to hold tasks
 const tasks = [];
+const completeTasks = [];
 const notes = [];
 const projects = {};
 
@@ -69,6 +71,33 @@ taskDialog.addEventListener("close", (e) =>{
     resetDisplay()
     showTasks(tasks, display);
 
+    checkBtns = document.querySelectorAll(`input[type=checkbox]`);
+    
+    checkBtns.forEach(btn => {
+        btn.addEventListener("click", ()=>{
+            const taskIndex = btn.parentNode.nextSibling.nextElementSibling.id;
+            tasks[taskIndex].complete = !tasks[taskIndex].complete;
+            
+            //move task to complete tasks
+            completeTasks.push(tasks[taskIndex]);
+            //remove item from tasks array
+            tasks.splice(taskIndex, 1);
+
+            //Update display
+            setTimeout(() => {
+                resetDisplay()
+                showTasks(tasks, display);   
+            }, 300);
+            
+            //TODO: Add functionality to completed task button
+            /*
+                features to have
+                Make task color dull gray and run strike through through text
+            */
+            
+        });
+    });
+
 });
 
 noteDialog.addEventListener("close", ()=>{
@@ -99,7 +128,7 @@ cancelNoteBtn.addEventListener("click", (e)=>{
 })
 
 //Always show tasks first
-showTasks(tasks, display);
+showTasks(tasks, display, checkBtns);
 
 //Menu button event listener
 todoBtn.addEventListener("click", () =>{
@@ -118,7 +147,7 @@ projectBtn.addEventListener("click", () =>{
 
     //update project view button array
     projectViewBtn = document.querySelectorAll(".project-view");
-    console.log(projectViewBtn)
+
 
     projectViewBtn.forEach(projectView => {
         const childNodes = projectView.childNodes;
@@ -147,6 +176,4 @@ projectBtn.addEventListener("click", () =>{
         })
     })
 });
-
-
 

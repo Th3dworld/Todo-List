@@ -171,7 +171,7 @@ body{
     border: 1px solid black;
 }
 
-#task-title{
+.task-title{
     grid-column: 2;
     grid-row: 1;
     font-size: 2rem;
