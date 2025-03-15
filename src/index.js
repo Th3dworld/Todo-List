@@ -183,3 +183,10 @@ completeBtn.addEventListener("click", ()=>{
     resetDisplay();
     showCompleteTasks(completeTasks, display);
 });
+
+//TODO 
+/*
+-Allow complete task function to work at anytime, not only when you have create a new task
+-Allow page to remain the same unless task or note is added.
+-Update projects page when a project no longer has tasks!
+*/
