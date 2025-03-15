@@ -2,6 +2,7 @@ import { addGoal, showTasks} from "./task_components.js";
 import { projectCounter, showProjects } from "./project_components.js";
 import { addNote, showNotes, getNoteFormData } from "./note_components.js";
 import {taskFormIsValid, noteFormIsValid, getFormData, resetForm} from "./form_handler.js"
+import { showCompleteTasks } from "./completed_components.js";
 
 
 import "./styles.css";
@@ -29,6 +30,7 @@ var projectViewBtn = document.querySelectorAll(".project-view");
 const todoBtn = document.querySelector("#todo");
 const projectBtn = document.querySelector("#projects");
 const noteBtn = document.querySelector("#notes");
+const completeBtn = document.querySelector("#completed");
 
 //functions
 function resetDisplay(){
@@ -177,3 +179,7 @@ projectBtn.addEventListener("click", () =>{
     })
 });
 
+completeBtn.addEventListener("click", ()=>{
+    resetDisplay();
+    showCompleteTasks(completeTasks, display);
+});
