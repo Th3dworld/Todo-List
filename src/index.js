@@ -91,10 +91,8 @@ noteDialog.addEventListener("close", ()=>{
         notes.push(addNote(noteData.title, noteData.note, noteData.writeDate));
     }
 
-    //reset display and show notes
-    resetDisplay();
-    showNotes(notes, display);
-
+    //show notes
+    noteBtn.click()
 });
 
 //form events
@@ -199,9 +197,16 @@ completeBtn.addEventListener("click", ()=>{
     showCompleteTasks(completeTasks, display);
 });
 
+addEventListener("keyup", e =>{
+    if(e.code === "Escape"){
+        cancelTaskBtn.click()
+        cancelNoteBtn.click()
+    } 
+})
+
+
 //TODO 
 /*
--Allow complete task function to work at anytime, not only when you have create a new task
--Allow page to remain the same unless task or note is added.
--Update projects page when a project no longer has tasks!
+Improve UI, make completed tasks look good
+Add notes under tasks???
 */

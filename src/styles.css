@@ -240,7 +240,15 @@ body{
 /* Code to edit input form */
 dialog{
     align-self: center;
-    width: 40%;
+    border-radius: 5px;
+    border-color: #3E5C76;
+    border-width: 2px;
+    width: clamp(20%, 500px, 80%);
+}
+
+::backdrop {
+    background-color: #3E5C76;
+    opacity: 0.75;
 }
 
 #form-buttons{
@@ -461,3 +469,5 @@ fieldset{
 #task.completed-task > .task-priority-low{
     background-color: rgba(148, 255, 148, 0.581);
 }
+
+
