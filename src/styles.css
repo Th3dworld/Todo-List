@@ -61,9 +61,11 @@ body{
     grid-column: 3;
     gap: 2px;
     justify-self: end;
-
+    
     height: 30px;
     border-radius: 10px;   
+    background: none;
+    border: none;
 }
 
 #add-note-btn{
@@ -75,6 +77,15 @@ body{
 
     height: 30px;
     border-radius: 10px;   
+    background: none;
+    border: none;
+}
+
+#add-task-btn:hover,
+#add-note-btn:hover
+{
+    background-color: #3e5c76a8;
+    border: solid black 1px;
 }
 
 #plus{

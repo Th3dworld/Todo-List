@@ -208,5 +208,5 @@ addEventListener("keyup", e =>{
 //TODO 
 /*
 Improve UI, make completed tasks look good
-Add notes under tasks???
+Add notes under projects???
 */
