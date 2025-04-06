@@ -12,7 +12,7 @@ import "./styles.css";
 const tasks = [];
 const completeTasks = [];
 const notes = [];
-const projects = {};
+let projects = {};
 
 //Get control variables
 const addTaskBtn = document.querySelector("#add-task-btn");
@@ -37,6 +37,16 @@ function resetDisplay(){
     display.innerHTML = "";
 }
 
+//Function to count projects
+function countProjects(taskArr){
+    projects = {}//reset dictionary
+
+    //iterate through task array to count valid projects
+    taskArr.forEach(task => {
+        projectCounter(projects, task)
+    })
+
+}
 //Program Events
 addTaskBtn.addEventListener("click", () => {taskDialog.showModal()});
 addNoteBtn.addEventListener("click", ()=>{noteDialog.showModal()})
@@ -62,44 +72,16 @@ taskDialog.addEventListener("close", (e) =>{
     //if form is valid append task
     if(taskFormIsValid()){
         const taskData = getFormData();
-        tasks.push(addGoal(taskData.title, taskData.description,taskData.project,taskData.priority,taskData.date))
-        projectCounter(projects, taskData);
+        tasks.push(addGoal(taskData.title, taskData.description,taskData.project,taskData.priority,taskData.date));
     }
     
     //reset the form
     resetForm("#my-form") 
 
     //reset display and show tasks
-    resetDisplay()
-    showTasks(tasks, display);
-
-    checkBtns = document.querySelectorAll(`input[type=checkbox]`);
-    
-    checkBtns.forEach(btn => {
-        btn.addEventListener("click", ()=>{
-            const taskIndex = btn.parentNode.nextSibling.nextElementSibling.id;
-            tasks[taskIndex].complete = !tasks[taskIndex].complete;
-            
-            //move task to complete tasks
-            completeTasks.push(tasks[taskIndex]);
-            //remove item from tasks array
-            tasks.splice(taskIndex, 1);
-
-            //Update display
-            setTimeout(() => {
-                resetDisplay()
-                showTasks(tasks, display);   
-            }, 300);
-            
-            //TODO: Add functionality to completed task button
-            /*
-                features to have
-                Make task color dull gray and run strike through through text
-            */
-            
-        });
-    });
-
+    todoBtn.click()
+    //count projects
+    countProjects(tasks);
 });
 
 noteDialog.addEventListener("close", ()=>{
@@ -136,6 +118,38 @@ showTasks(tasks, display, checkBtns);
 todoBtn.addEventListener("click", () =>{
     resetDisplay();
     showTasks(tasks, display);
+
+    checkBtns = document.querySelectorAll(`input[type=checkbox]`);
+    
+    checkBtns.forEach(btn => {
+        btn.addEventListener("click", ()=>{
+            const taskIndex = btn.parentNode.nextSibling.nextElementSibling.id;
+            tasks[taskIndex].complete = !tasks[taskIndex].complete;
+            
+            //move task to complete tasks
+            completeTasks.push(tasks[taskIndex]);
+            //remove item from tasks array
+            tasks.splice(taskIndex, 1);
+
+            //Update display
+            setTimeout(() => {
+                resetDisplay()
+                todoBtn.click()
+            }, 300);
+            
+            //update Project Map/Project Counter
+            countProjects(tasks);
+
+            //TODO: Add functionality to completed task button
+            /*
+                features to have
+                Make task color dull gray and run strike through through text
+            */
+            
+        });
+    });
+
+
 });
 
 noteBtn.addEventListener("click", ()=>{
@@ -146,6 +160,7 @@ noteBtn.addEventListener("click", ()=>{
 projectBtn.addEventListener("click", () =>{
     resetDisplay();
     showProjects(projects, Object.keys(projects), display);
+    console.log(projects)
 
     //update project view button array
     projectViewBtn = document.querySelectorAll(".project-view");
