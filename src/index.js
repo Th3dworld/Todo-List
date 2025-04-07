@@ -23,8 +23,14 @@ const display = document.querySelector("#display");
 const cancelTaskBtn = document.querySelector("#cancel-task");
 const cancelNoteBtn = document.querySelector("#cancel-note");
 const menuBtns = document.querySelectorAll(".menu-btn");
-var checkBtns;
-var projectViewBtn = document.querySelectorAll(".project-view");
+
+//non constant variables
+let deletBtns;
+let editBtns;
+let checkBtns;
+let taskEdit;
+let editIndex;
+let projectViewBtn = document.querySelectorAll(".project-view");
 
 //Menu buttons
 const todoBtn = document.querySelector("#todo");
@@ -48,7 +54,11 @@ function countProjects(taskArr){
 
 }
 //Program Events
-addTaskBtn.addEventListener("click", () => {taskDialog.showModal()});
+addTaskBtn.addEventListener("click", () => {
+    taskDialog.showModal()
+    taskEdit = false
+});
+
 addNoteBtn.addEventListener("click", ()=>{noteDialog.showModal()})
 
 menuBtns.forEach(btn => {
@@ -70,9 +80,23 @@ menuBtns.forEach(btn => {
 //Add task to display
 taskDialog.addEventListener("close", (e) =>{
     //if form is valid append task
-    if(taskFormIsValid()){
+    if(taskFormIsValid() && !taskEdit){
         const taskData = getFormData();
         tasks.push(addGoal(taskData.title, taskData.description,taskData.project,taskData.priority,taskData.date));
+    }else if(taskEdit){
+        tasks[editIndex].title = document.querySelector("#task-title-input").value;
+        tasks[editIndex].description = document.querySelector("#task-description-input").value;
+        tasks[editIndex].project = document.querySelector("#task-project-input").value;
+        var dateFormatter = document.querySelector("#task-duedate-input").value.split("-");
+        dateFormatter[0] = dateFormatter[0].split("");
+        var date = parseInt(dateFormatter[1]) + "/" + dateFormatter[2] + "/" + dateFormatter[0][2] + + dateFormatter[0][3];
+        tasks[editIndex].dueDate = date;
+        document.getElementsByName("task-priority-input").forEach(elem => {
+            if(elem.checked){
+                tasks[editIndex].priority = elem.value;
+            }
+        });
+
     }
     
     //reset the form
@@ -121,6 +145,8 @@ todoBtn.addEventListener("click", () =>{
     showTasks(tasks, display);
 
     checkBtns = document.querySelectorAll(`input[type=checkbox]`);
+    deletBtns = document.querySelectorAll("#delete");
+    editBtns = document.querySelectorAll("#edit");
     
     checkBtns.forEach(btn => {
         btn.addEventListener("click", ()=>{
@@ -150,6 +176,53 @@ todoBtn.addEventListener("click", () =>{
         });
     });
 
+    deletBtns.forEach(btn =>{
+        btn.addEventListener("click", (e) => {
+            //delete project
+            const taskIndex = e.srcElement.parentNode.parentNode.childNodes[3].id;
+            tasks.splice(taskIndex, 1);
+
+            //Update display
+            setTimeout(() => {
+                resetDisplay()
+                todoBtn.click()
+            }, 150);
+            
+            //update Project Map/Project Counter
+            countProjects(tasks);
+        })
+    })
+
+    editBtns.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            //set data on form
+            editIndex = e.srcElement.parentNode.parentNode.childNodes[3].id;
+            document.querySelector("#task-title-input").value = tasks[editIndex].title;
+            document.querySelector("#task-description-input").value = tasks[editIndex].description;
+            document.querySelector("#task-project-input").value = tasks[editIndex].project;
+            document.getElementById("task-duedate-input").valueAsDate = new Date(tasks[editIndex].dueDate);
+            document.getElementsByName("task-priority-input").forEach(elem => {
+                if(elem.value == tasks[editIndex].priority ){
+                    elem.checked = true;
+                }
+            });
+
+            //set edit to true
+            taskEdit = true;
+
+            taskDialog.showModal()
+            
+
+            //Update display
+            setTimeout(() => {
+                resetDisplay()
+                todoBtn.click()
+            }, 150);
+            
+            //update Project Map/Project Counter
+            countProjects(tasks);
+        })
+    });
 
 });
 
@@ -206,6 +279,7 @@ addEventListener("keyup", e =>{
         cancelNoteBtn.click()
     } 
 })
+
 
 
 //TODO 

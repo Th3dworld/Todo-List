@@ -28,6 +28,12 @@ function showTasks(taskArray, htmlComponent, btnVar){
                     <div>Due</div>
                     <div id="ac-date">${elem.dueDate}</div>
                 </div>
+                <div id="editOpts">
+                    <div id="delete">
+                    </div>
+                    <div id="edit">
+                    </div>
+                </div>
                 <div class="task-priority-${elem.priority}"></div>
             </div>
             `

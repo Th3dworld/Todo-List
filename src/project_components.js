@@ -1,15 +1,9 @@
 function projectCounter(projectObj,taskObj){
-    console.log("count me in")
-    console.log(taskObj)
-    console.log(taskObj.project)
-
     if(!(projectObj[taskObj.project])){
         projectObj[taskObj.project] = 1
     }else{
         projectObj[taskObj.project] += 1
     }
-
-    console.log(projectObj)
 }
 
 function showProjects(projectObj, projectArray, htmlComponent){
