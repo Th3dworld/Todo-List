@@ -43,6 +43,20 @@ function resetDisplay(){
     display.innerHTML = "";
 }
 
+function editTask(){
+    tasks[editIndex].title = document.querySelector("#task-title-input").value;
+    tasks[editIndex].description = document.querySelector("#task-description-input").value;
+    tasks[editIndex].project = document.querySelector("#task-project-input").value;
+    var dateFormatter = document.querySelector("#task-duedate-input").value.split("-");        dateFormatter[0] = dateFormatter[0].split("");
+    var date = parseInt(dateFormatter[1]) + "/" + dateFormatter[2] + "/" + dateFormatter[0][2] + + dateFormatter[0][3];
+    tasks[editIndex].dueDate = date;
+    document.getElementsByName("task-priority-input").forEach(elem => {
+        if(elem.checked){
+            tasks[editIndex].priority = elem.value;
+        }
+    });
+}
+
 //Function to count projects
 function countProjects(taskArr){
     projects = {}//reset dictionary
@@ -84,19 +98,7 @@ taskDialog.addEventListener("close", (e) =>{
         const taskData = getFormData();
         tasks.push(addGoal(taskData.title, taskData.description,taskData.project,taskData.priority,taskData.date));
     }else if(taskEdit){
-        tasks[editIndex].title = document.querySelector("#task-title-input").value;
-        tasks[editIndex].description = document.querySelector("#task-description-input").value;
-        tasks[editIndex].project = document.querySelector("#task-project-input").value;
-        var dateFormatter = document.querySelector("#task-duedate-input").value.split("-");
-        dateFormatter[0] = dateFormatter[0].split("");
-        var date = parseInt(dateFormatter[1]) + "/" + dateFormatter[2] + "/" + dateFormatter[0][2] + + dateFormatter[0][3];
-        tasks[editIndex].dueDate = date;
-        document.getElementsByName("task-priority-input").forEach(elem => {
-            if(elem.checked){
-                tasks[editIndex].priority = elem.value;
-            }
-        });
-
+        editTask();
     }
     
     //reset the form
@@ -124,7 +126,14 @@ noteDialog.addEventListener("close", ()=>{
 
 //form events
 cancelTaskBtn.addEventListener("click", (e)=>{
-    e.preventDefault()
+    // e.preventDefault()
+    
+    //Edit task
+    if(taskEdit){
+        editTask();
+        taskEdit = false
+    }
+
     //reset the form so it is never valid on submission
     resetForm("#my-form");
     taskDialog.close();   
