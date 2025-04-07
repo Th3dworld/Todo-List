@@ -49,6 +49,7 @@ function getNoteFormData(){
     const writeDate = dateFormatter.getMonth() +"/"+ dateFormatter.getDate() +"/"+ String(dateFormatter.getFullYear()).split("")[2] + String(dateFormatter.getFullYear()).split("")[3]
     console.log(title, note, writeDate);
     
+   
     return {
         title,
         note,

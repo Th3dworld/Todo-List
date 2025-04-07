@@ -8,8 +8,8 @@ function taskFormIsValid(){
     });
 
     //Check if form is filled before creating task object
-    if(document.querySelector("#task-title-input").value !== "" &&
-    document.querySelector("#task-duedate-input").value !== "" &&
+    if(document.querySelector("#task-title-input").value.trim() !== "" &&
+    document.querySelector("#task-duedate-input").value.trim() !== "" &&
     priority !== ""){
         return true
     }
@@ -50,8 +50,8 @@ function resetForm(formId){
 
 function noteFormIsValid(){
     if(
-        document.querySelector("#note-title-input").value != "" &&
-        document.querySelector("#note-title-input").value != ""
+        document.querySelector("#note-title-input").value.trim() != "" &&
+        document.querySelector("#note-title-input").value.trim() != ""
     ){
         return true;
     }

@@ -91,6 +91,9 @@ noteDialog.addEventListener("close", ()=>{
         notes.push(addNote(noteData.title, noteData.note, noteData.writeDate));
     }
 
+    //reset the form
+    resetForm("#my-note-form") 
+
     //show notes
     noteBtn.click()
 });
