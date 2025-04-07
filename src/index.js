@@ -27,9 +27,12 @@ const menuBtns = document.querySelectorAll(".menu-btn");
 //non constant variables
 let deletBtns;
 let editBtns;
+let noteEditBtns;
+let noteDeleteBtns;
 let checkBtns;
 let taskEdit;
 let editIndex;
+let noteEdit;
 let projectViewBtn = document.querySelectorAll(".project-view");
 
 //Menu buttons
@@ -293,6 +296,5 @@ addEventListener("keyup", e =>{
 
 //TODO 
 /*
-Improve UI, make completed tasks look good
-Add notes under projects???
+Finish work on note editing buttons
 */

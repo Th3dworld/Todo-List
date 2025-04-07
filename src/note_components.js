@@ -19,14 +19,18 @@ function showNotes(notesArray, htmlComponent){
         `;
 
         const noteBoy = document.querySelector("#note-boy");
-        notesArray.forEach(elem => {
+        notesArray.forEach((elem,index) => {
             noteBoy.innerHTML += `
-            <div class="note-pad">
+            <div class="note-pad" id=${index}>
                 <div class="note-title">
                 ${elem.title}
                 </div>
                 <div class="note-notes">
                 ${elem.note}
+                </div>
+                <div id="noteEdits">
+                    <div id="deleter"></div>
+                    <div id="editer"></div>
                 </div>
                 <div class="date">
                 written on: ${elem.writeDate}

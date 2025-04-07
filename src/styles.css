@@ -468,7 +468,7 @@ fieldset{
     border-radius: 15px;
 
     display: grid;
-    grid-template-rows: 40px 1fr 15px;
+    grid-template-rows: 40px 1fr 30px 15px;
     overflow-y: hidden;
 }
 
@@ -484,8 +484,46 @@ fieldset{
     overflow-y: scroll;
 }
 
-.date{
+
+#noteEdits{
     grid-row: 3;
+    display: grid;
+    grid-template-columns: 1fr 30px 30px;
+    width: 100%;
+    justify-self: end;
+}
+
+#noteEdits > #deleter{
+    background-image: url("icons8-trash\ \(1\).svg");
+    background-repeat: no-repeat;
+    grid-column: 2;
+}
+
+#noteEdits > #deleter:hover{
+    background-image: url("icons8-trash.svg");
+    background-color: rgba(197, 197, 197, 0.898);
+    border-radius: 5px;
+    background-repeat: no-repeat;
+    grid-column: 2;
+}
+
+#noteEdits > #editer{
+    background-image: url("icons8-edit.svg");
+    background-repeat: no-repeat;
+    grid-column: 3;
+    
+}
+
+#noteEdits > #editer:hover{
+    background-image: url("icons8-edit.svg");
+    background-color: rgba(197, 197, 197, 0.898);
+    border-radius: 5px;
+    background-repeat: no-repeat;
+    grid-column: 3;
+}
+
+.date{
+    grid-row: 4;
     justify-self: end;
     color:aliceblue;
 
