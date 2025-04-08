@@ -9,9 +9,9 @@ import "./styles.css";
 
 
 //Array to hold tasks
-const tasks = [];
-const completeTasks = [];
-const notes = [];
+let tasks = [];
+let completeTasks = [];
+let notes = [];
 let projects = {};
 
 //Get control variables
@@ -46,7 +46,69 @@ function resetDisplay(){
     display.innerHTML = "";
 }
 
+//check if storage is available
+function storageAvailable(type) {
+    let storage;
+    try {
+      storage = window[type];
+      const x = "__storage_test__";
+      storage.setItem(x, x);
+      storage.removeItem(x);
+      return true;
+    } catch (e) {
+      return (
+        e instanceof DOMException &&
+        e.name === "QuotaExceededError" &&
+        // acknowledge QuotaExceededError only if there's something already stored
+        storage &&
+        storage.length !== 0
+      );
+    }
+}
 
+if (storageAvailable("localStorage")) {
+    console.log("here")
+} else {
+    console.log("no")
+}
+
+function getStorage(){
+    if(localStorage.getItem("tasks")){
+        tasks = JSON.parse(localStorage.getItem("tasks"));
+        todoBtn.click()
+    }
+    if(localStorage.getItem("projects")){
+        projects = JSON.parse(localStorage.getItem("projects"))
+    }
+    if(localStorage.getItem("completed")){
+        completeTasks = JSON.parse(localStorage.getItem("completed"))
+    }
+    if(localStorage.getItem("notes")){
+        notes = JSON.parse(localStorage.getItem("notes"))
+    }
+}
+
+window.addEventListener("unload", (e) =>{populateStorage()});
+window.addEventListener("load", (e) =>{
+    getStorage()
+    showTasks(tasks, display);
+});
+
+
+function populateStorage() {
+    if(tasks){
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+    if(projects){
+        localStorage.setItem("projects", JSON.stringify(projects));
+    }
+    if(completeTasks){
+        localStorage.setItem("completed", JSON.stringify(completeTasks));
+    }
+    if(notes){
+        localStorage.setItem("notes", JSON.stringify(notes));
+    }
+}
 
 function editTask(){
     tasks[editIndex].title = document.querySelector("#task-title-input").value;
@@ -120,6 +182,7 @@ taskDialog.addEventListener("close", (e) =>{
 
     //reset display and show tasks
     todoBtn.click()
+
     //count projects
     countProjects(tasks);
 });
@@ -163,6 +226,9 @@ showTasks(tasks, display, checkBtns);
 todoBtn.addEventListener("click", () =>{
     resetDisplay();
     showTasks(tasks, display);
+
+    //populate storage
+    populateStorage()
 
     checkBtns = document.querySelectorAll(`input[type=checkbox]`);
     deletBtns = document.querySelectorAll("#delete");
@@ -250,6 +316,9 @@ noteBtn.addEventListener("click", ()=>{
     resetDisplay();
     showNotes(notes, display);
 
+    //populate storage
+    populateStorage()
+
     noteEditBtns = document.querySelectorAll("#editer");
     noteDeleteBtns = document.querySelectorAll("#deleter");
 
@@ -271,7 +340,7 @@ noteBtn.addEventListener("click", ()=>{
             editIndex = e.srcElement.parentNode.parentNode.id;
             
             notes.splice(editIndex, 1);
-
+            
             //Update display
             setTimeout(() => {
                 resetDisplay()
@@ -286,7 +355,9 @@ noteBtn.addEventListener("click", ()=>{
 projectBtn.addEventListener("click", () =>{
     resetDisplay();
     showProjects(projects, Object.keys(projects), display);
-    console.log(projects)
+
+    //Populate Storage
+    populateStorage()
 
     //update project view button array
     projectViewBtn = document.querySelectorAll(".project-view");
@@ -322,7 +393,15 @@ projectBtn.addEventListener("click", () =>{
 
 completeBtn.addEventListener("click", ()=>{
     resetDisplay();
-    showCompleteTasks(completeTasks, display);
+    showCompleteTasks(completeTasks.reverse(), display);
+
+    checkBtns = document.querySelectorAll(`input[type=checkbox]`);
+    console.log(checkBtns);
+    checkBtns.forEach(btn => {
+        btn.addEventListener("click", (e)=>{
+            e.preventDefault()
+        } );
+    });
 });
 
 addEventListener("keyup", e =>{
@@ -336,5 +415,5 @@ addEventListener("keyup", e =>{
 
 //TODO 
 /*
-Finish work on note editing buttons
+Work on storage!!!
 */
