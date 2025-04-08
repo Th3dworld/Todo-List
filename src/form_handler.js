@@ -23,8 +23,7 @@ function getFormData(){
     //format and store date
     var dateFormatter = document.querySelector("#task-duedate-input").value.split("-");
     dateFormatter[0] = dateFormatter[0].split("");
-    var date = parseInt(dateFormatter[1]) + "/" + dateFormatter[2] + "/" + dateFormatter[0][2] + + dateFormatter[0][3];
-    
+    var date = parseInt(dateFormatter[1]) + "/" + parseInt(dateFormatter[2]) + "/" + dateFormatter[0][2]  + dateFormatter[0][3];
         
 
     //get priority

@@ -3,6 +3,7 @@ class Note{
         this.title = title;
         this.note = note;
         this.writeDate = writeDate;
+        this.updated = false;
     }
 
 }
@@ -33,7 +34,7 @@ function showNotes(notesArray, htmlComponent){
                     <div id="editer"></div>
                 </div>
                 <div class="date">
-                written on: ${elem.writeDate}
+                ${elem.updated? "updated":"written"} on: ${elem.writeDate}
                 </div>
             </div>
             `;

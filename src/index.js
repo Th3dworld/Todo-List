@@ -46,18 +46,29 @@ function resetDisplay(){
     display.innerHTML = "";
 }
 
+
+
 function editTask(){
     tasks[editIndex].title = document.querySelector("#task-title-input").value;
     tasks[editIndex].description = document.querySelector("#task-description-input").value;
     tasks[editIndex].project = document.querySelector("#task-project-input").value;
     var dateFormatter = document.querySelector("#task-duedate-input").value.split("-");        dateFormatter[0] = dateFormatter[0].split("");
-    var date = parseInt(dateFormatter[1]) + "/" + dateFormatter[2] + "/" + dateFormatter[0][2] + + dateFormatter[0][3];
+    var date = parseInt(dateFormatter[1]) + "/" + parseInt(dateFormatter[2]) + "/" + dateFormatter[0][2] + + dateFormatter[0][3];
     tasks[editIndex].dueDate = date;
     document.getElementsByName("task-priority-input").forEach(elem => {
         if(elem.checked){
             tasks[editIndex].priority = elem.value;
         }
     });
+}
+
+function editNote(){
+    notes[editIndex].title = document.querySelector("#note-title-input").value;
+    notes[editIndex].note = document.querySelector("#note-description-input").value;
+    const dateFormatter = new Date();
+    const writeDate = dateFormatter.getMonth() +"/"+ dateFormatter.getDate() +"/"+ String(dateFormatter.getFullYear()).split("")[2] + String(dateFormatter.getFullYear()).split("")[3]
+    notes[editIndex].writeDate = writeDate;
+    notes[editIndex].updated = true
 }
 
 //Function to count projects
@@ -114,10 +125,12 @@ taskDialog.addEventListener("close", (e) =>{
 });
 
 noteDialog.addEventListener("close", ()=>{
-    if(noteFormIsValid()){
+    if(noteFormIsValid() && !noteEdit){
         const noteData = getNoteFormData();
         console.log(noteData)
         notes.push(addNote(noteData.title, noteData.note, noteData.writeDate));
+    }else if(noteEdit){
+        editNote()
     }
 
     //reset the form
@@ -129,14 +142,8 @@ noteDialog.addEventListener("close", ()=>{
 
 //form events
 cancelTaskBtn.addEventListener("click", (e)=>{
-    // e.preventDefault()
-    
-    //Edit task
-    if(taskEdit){
-        editTask();
-        taskEdit = false
-    }
-
+    e.preventDefault()
+    taskEdit = false
     //reset the form so it is never valid on submission
     resetForm("#my-form");
     taskDialog.close();   
@@ -144,6 +151,7 @@ cancelTaskBtn.addEventListener("click", (e)=>{
 
 cancelNoteBtn.addEventListener("click", (e)=>{
     e.preventDefault()
+    noteEdit = false
     resetForm("#my-note-form");
     noteDialog.close();
 })
@@ -241,6 +249,38 @@ todoBtn.addEventListener("click", () =>{
 noteBtn.addEventListener("click", ()=>{
     resetDisplay();
     showNotes(notes, display);
+
+    noteEditBtns = document.querySelectorAll("#editer");
+    noteDeleteBtns = document.querySelectorAll("#deleter");
+
+    noteEditBtns.forEach(btn => {
+        btn.addEventListener("click", (e)=>{
+            editIndex = e.srcElement.parentNode.parentNode.id;
+            document.querySelector("#note-title-input").value = notes[editIndex].title;
+            document.querySelector("#note-description-input").value = notes[editIndex].note;
+            
+            noteEdit = true
+
+            noteDialog.showModal()
+            
+        });
+    });
+
+    noteDeleteBtns.forEach(btn => {
+        btn.addEventListener("click", (e)=>{
+            editIndex = e.srcElement.parentNode.parentNode.id;
+            
+            notes.splice(editIndex, 1);
+
+            //Update display
+            setTimeout(() => {
+                resetDisplay()
+                noteBtn.click()
+            }, 150);
+           
+            
+        });
+    });
 });
 
 projectBtn.addEventListener("click", () =>{
