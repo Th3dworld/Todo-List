@@ -3,6 +3,7 @@ import { projectCounter, showProjects } from "./project_components.js";
 import { addNote, showNotes, getNoteFormData } from "./note_components.js";
 import {taskFormIsValid, noteFormIsValid, getFormData, resetForm} from "./form_handler.js"
 import { showCompleteTasks } from "./completed_components.js";
+import { isEqual, isBefore, isAfter, compareAsc, compareDesc } from 'date-fns';
 
 
 import "./styles.css";
@@ -67,9 +68,9 @@ function storageAvailable(type) {
 }
 
 if (storageAvailable("localStorage")) {
-    console.log("here")
+    console.log("Storage is Available")
 } else {
-    console.log("no")
+    console.log("Storage is  not Available")
 }
 
 function getStorage(){
@@ -168,7 +169,23 @@ taskDialog.addEventListener("close", (e) =>{
     //if form is valid append task
     if(taskFormIsValid() && !taskEdit){
         const taskData = getFormData();
-        tasks.push(addGoal(taskData.title, taskData.description,taskData.project,taskData.priority,taskData.date));
+        let currDate = ((new Date())).toLocaleDateString('en-US', {
+            year: "numeric",
+            month : "2-digit",
+            day: "2-digit"
+        })
+
+        let taskDate = (new Date(taskData.date)).toLocaleDateString('en-US',
+        {
+            year: "numeric",
+            month : "2-digit",
+            day: "2-digit"
+        })
+
+       
+        if(currDate <=  taskDate){
+            tasks.push(addGoal(taskData.title, taskData.description,taskData.project,taskData.priority,taskData.date));
+        }
 
         //reset display and show tasks
         todoBtn.click()
@@ -231,7 +248,6 @@ cancelNoteBtn.addEventListener("click", (e)=>{
 //Menu button event listener
 todoBtn.addEventListener("click", () =>{
     resetDisplay();
-    console.log(tasks.length);
     showTasks(tasks, display);
 
     //populate storage
@@ -435,10 +451,4 @@ addEventListener("keyup", e =>{
 //Always show tasks first
 getStorage();
 todoBtn.click();
-localStorage.clear()
-// showTasks(tasks, display);
 
-//TODO 
-/*
-Work on storage!!!
-*/
