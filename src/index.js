@@ -75,7 +75,6 @@ if (storageAvailable("localStorage")) {
 function getStorage(){
     if(localStorage.getItem("tasks")){
         tasks = JSON.parse(localStorage.getItem("tasks"));
-        todoBtn.click()
     }
     if(localStorage.getItem("projects")){
         projects = JSON.parse(localStorage.getItem("projects"))
@@ -89,10 +88,6 @@ function getStorage(){
 }
 
 window.addEventListener("unload", (e) =>{populateStorage()});
-window.addEventListener("load", (e) =>{
-    getStorage()
-    showTasks(tasks, display);
-});
 
 
 function populateStorage() {
@@ -143,6 +138,7 @@ function countProjects(taskArr){
     })
 
 }
+
 //Program Events
 addTaskBtn.addEventListener("click", () => {
     taskDialog.showModal()
@@ -173,15 +169,20 @@ taskDialog.addEventListener("close", (e) =>{
     if(taskFormIsValid() && !taskEdit){
         const taskData = getFormData();
         tasks.push(addGoal(taskData.title, taskData.description,taskData.project,taskData.priority,taskData.date));
+
+        //reset display and show tasks
+        todoBtn.click()
     }else if(taskEdit){
         editTask();
+       
+        //reset display and show tasks
+        todoBtn.click()
     }
     
     //reset the form
     resetForm("#my-form") 
 
-    //reset display and show tasks
-    todoBtn.click()
+    
 
     //count projects
     countProjects(tasks);
@@ -192,15 +193,20 @@ noteDialog.addEventListener("close", ()=>{
         const noteData = getNoteFormData();
         console.log(noteData)
         notes.push(addNote(noteData.title, noteData.note, noteData.writeDate));
+        
+        //show notes
+        noteBtn.click()
     }else if(noteEdit){
         editNote()
+
+        //show notes
+        noteBtn.click()
     }
 
     //reset the form
     resetForm("#my-note-form") 
 
-    //show notes
-    noteBtn.click()
+    
 });
 
 //form events
@@ -219,16 +225,17 @@ cancelNoteBtn.addEventListener("click", (e)=>{
     noteDialog.close();
 })
 
-//Always show tasks first
-showTasks(tasks, display, checkBtns);
+
+
 
 //Menu button event listener
 todoBtn.addEventListener("click", () =>{
     resetDisplay();
+    console.log(tasks.length);
     showTasks(tasks, display);
 
     //populate storage
-    populateStorage()
+    // populateStorage()
 
     checkBtns = document.querySelectorAll(`input[type=checkbox]`);
     deletBtns = document.querySelectorAll("#delete");
@@ -317,7 +324,7 @@ noteBtn.addEventListener("click", ()=>{
     showNotes(notes, display);
 
     //populate storage
-    populateStorage()
+    // populateStorage()
 
     noteEditBtns = document.querySelectorAll("#editer");
     noteDeleteBtns = document.querySelectorAll("#deleter");
@@ -357,7 +364,7 @@ projectBtn.addEventListener("click", () =>{
     showProjects(projects, Object.keys(projects), display);
 
     //Populate Storage
-    populateStorage()
+    // populateStorage()
 
     //update project view button array
     projectViewBtn = document.querySelectorAll(".project-view");
@@ -394,6 +401,20 @@ projectBtn.addEventListener("click", () =>{
 completeBtn.addEventListener("click", ()=>{
     resetDisplay();
     showCompleteTasks(completeTasks.reverse(), display);
+    deletBtns = document.querySelectorAll("#compDelete");
+    
+    deletBtns.forEach(btn => {
+        btn.addEventListener("click", (e)=>{
+            editIndex = e.srcElement.parentNode.childNodes[3].id
+            completeTasks.splice(editIndex,1)
+
+            //Update display
+            setTimeout(() => {
+                resetDisplay()
+                completeBtn.click()
+            }, 150);
+        });
+    });
 
     checkBtns = document.querySelectorAll(`input[type=checkbox]`);
     console.log(checkBtns);
@@ -411,7 +432,11 @@ addEventListener("keyup", e =>{
     } 
 })
 
-
+//Always show tasks first
+getStorage();
+todoBtn.click();
+localStorage.clear()
+// showTasks(tasks, display);
 
 //TODO 
 /*

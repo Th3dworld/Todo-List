@@ -10,6 +10,7 @@ function showCompleteTasks(completeTaskArray, htmlComponent){
                     <div>Due</div>
                     <div id="ac-date">${elem.dueDate}</div>
                 </div>
+                <div id="compDelete"></div>
                 <div class="task-priority-${elem.priority}"></div>
             </div>
             `

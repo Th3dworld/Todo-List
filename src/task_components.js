@@ -15,7 +15,7 @@ function addGoal(title, description, project, priority, dueDate){
     return new Goal(title, description, project, priority, dueDate)
 }
 
-function showTasks(taskArray, htmlComponent, btnVar){
+function showTasks(taskArray, htmlComponent){
     if(taskArray.length > 0){
         taskArray.forEach((elem, index) => {
             if(!elem.complete){
